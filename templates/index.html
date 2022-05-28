@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#000000"/>
+    <meta name="description" content="Web site created using create-react-app"/>
+    <link crossorigin rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <title>Fairy Tale Generator</title>
+    <link href="{{ url_for('static',filename='styles/index.css') }}" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        var refresh_id = setInterval(function() {
+            $.get(
+              "{{ url_for('thread_status') }}",
+              function(data) {
+                console.log(data);
+                if (data.status == 'finished') {
+                  window.location.replace("{{ url_for('result') }}");
+                }
+              }
+            )}
+          , 1500);
+      });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark navbar-expand-md bg-faded justify-content-center">
+    <div class="container"><a href="https://russiannlp.github.io/rugpt-demo/"
+                              class="navbar-brand d-flex w-50 me-auto"><b>Fairy Tale Generator</b></a>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row" style="padding:2.5em">
+        <div class="col-sm-7" style="padding-bottom:2.5em">
+            <div id="root">
+                <div class="App">
+                    <header class="App-header">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            <p class="{{ category }}">{{ message }}</p>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                        <form action="/" class="w-100 justify-content-center" method="post">
+                            <div class="row">
+                                <p>
+                                    <label for="start-story">Начало сказки:</label>
+                                    <textarea name="start-story"></textarea>
+                                </p>
+                            </div>
+                            <div class="row"><input type="submit" class="btn btn-success" value="Сгенерировать"></div>
+                            <div class="row" style="margin-top: 60px;">
+                                <p>
+                                    <label for="story">Результат:</label>
+                                    <textarea name="story" style="padding-bottom: 20%"
+                                              disabled>{{ fairy_tale }}</textarea>
+                                </p>
+
+                            </div>
+                        </form>
+                    </header>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

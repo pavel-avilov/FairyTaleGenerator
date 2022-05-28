@@ -1,0 +1,44 @@
+label,
+textarea {
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+textarea {
+    padding: 10px;
+    width: 500px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.w-100 justify-content-center {
+    align-content: center;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: center;
+}
+
+.error {
+    color: #ba3939;
+    background: #ffe0e0;
+    border: 1px solid #a33a3a;
+    padding: 8px;
+    margin-left: -15px;
+}
+
+.success {
+    color: #2b7515;
+    background: #ecffd6;
+    border: 1px solid #617c42;
+    padding: 8px;
+    margin-left: -15px;
+}
